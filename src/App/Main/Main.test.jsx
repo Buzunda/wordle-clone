@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import Main from "./Main";
-import { fillWord } from "../Test/Helpers";
+import { fillWord } from "../../Test/Helpers";
 
 describe("Main", () => {
   beforeEach(() => {

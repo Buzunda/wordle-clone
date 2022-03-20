@@ -7,7 +7,7 @@ import {
   fillActiveInput,
   fillWord,
   keydownActiveInput,
-} from "../../../Test/Helpers";
+} from "../../../../Test/Helpers";
 
 describe("InputBoxes", () => {
   const given = getGiven();
