@@ -1,3 +1,5 @@
+@import "../../../styles/variables";
+
 .inputBox {
   justify-content: space-between;
   border: 2px solid lightgray;
@@ -12,15 +14,15 @@
     outline: none;
   }
   &.correct {
-    background-color: #60ba51;
-    border-color: #60ba51;
+    background-color: $color-correct;
+    border-color: $color-correct;
   }
   &.wrong {
-    background-color: #c0423f;
-    border-color: #c0423f;
+    background-color: $color-wrong;
+    border-color: $color-wrong;
   }
   &.misplaced {
-    background-color: #d3aa41;
-    border-color: #d3aa41;
+    background-color: $color-misplaced;
+    border-color: $color-misplaced;
   }
 }
