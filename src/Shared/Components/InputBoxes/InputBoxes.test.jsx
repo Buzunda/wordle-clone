@@ -3,6 +3,11 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import getGiven from "givens";
 
 import InputBoxes from "./InputBoxes";
+import {
+  fillActiveInput,
+  fillWord,
+  keydownActiveInput,
+} from "../../../Test/Helpers";
 
 describe("InputBoxes", () => {
   const given = getGiven();
@@ -13,25 +18,6 @@ describe("InputBoxes", () => {
   const fillInput = (testId, value) => {
     fireEvent.change(screen.getByTestId(testId), {
       target: { value: value },
-    });
-  };
-
-  const fillActiveInput = (value) => {
-    fireEvent.change(document.activeElement, {
-      target: { value: value },
-    });
-  };
-
-  const fillWord = (word) => {
-    for (let i = 0; i < word.length; i++) {
-      fillActiveInput(word[i]);
-    }
-  };
-
-  const keydownActiveInput = (key) => {
-    fireEvent.keyDown(document.activeElement, {
-      key: key,
-      code: key,
     });
   };
 
