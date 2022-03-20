@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import InputBox from "../InputBox/InputBox";
 
-const InputBoxes = ({ amount, handleOutputString }) => {
+const InputBoxes = ({ amount, statusArray, handleOutputString }) => {
   const [word, setWord] = useState(Array(amount).fill(null));
 
   const inputRegExp = /^[a-zA-Z]$/;
@@ -70,6 +70,7 @@ const InputBoxes = ({ amount, handleOutputString }) => {
       items.push(
         <InputBox
           key={i}
+          status={statusArray[i]}
           handleKeyDown={handleKeyDown}
           handleChange={handleChange}
           inputRef={(el) => {
@@ -89,6 +90,7 @@ const InputBoxes = ({ amount, handleOutputString }) => {
 
 InputBoxes.propTypes = {
   amount: PropTypes.number,
+  statusArray: PropTypes.arrayOf(PropTypes.string),
   handleOutputString: PropTypes.func.isRequired,
 };
 

@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import getGiven from "givens";
 
 import InputBoxes from "./InputBoxes";
+import { Status } from "../../Constants/Status";
 import {
   fillActiveInput,
   fillWord,
@@ -13,6 +14,7 @@ describe("InputBoxes", () => {
   const given = getGiven();
 
   given("amount", () => 5);
+  given("statusArray", () => Array(5).fill(null));
   const handleOutputString = jest.fn();
 
   const fillInput = (testId, value) => {
@@ -26,6 +28,7 @@ describe("InputBoxes", () => {
       <InputBoxes
         handleOutputString={handleOutputString}
         amount={given.amount}
+        statusArray={given.statusArray}
       />
     );
   });
@@ -112,6 +115,23 @@ describe("InputBoxes", () => {
       fillWord("ss");
 
       expect(handleOutputString).toHaveBeenCalledWith("grass");
+    });
+  });
+
+  describe("input status", () => {
+    const statusArray = [
+      Status.WRONG,
+      Status.CORRECT,
+      Status.MISPLACED,
+      Status.CORRECT,
+      Status.WRONG,
+    ];
+    given("statusArray", () => statusArray);
+
+    statusArray.forEach((status, key) => {
+      it("sets status correctly on each input", () => {
+        expect(screen.getByTestId(`input-${key}`)).toHaveClass(status);
+      });
     });
   });
 });
