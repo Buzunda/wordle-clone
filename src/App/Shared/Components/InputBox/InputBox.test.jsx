@@ -47,6 +47,10 @@ describe("InputBox", () => {
       it(`adds ${status} class`, () => {
         expect(screen.getByTestId("input-test")).toHaveClass(status);
       });
+
+      it("disables the input when status is present", () => {
+        expect(screen.getByTestId("input-test")).toBeDisabled();
+      });
     });
   });
 

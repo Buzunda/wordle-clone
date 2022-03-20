@@ -25,6 +25,7 @@ const InputBox = ({
       name={name}
       ref={inputRef}
       data-testid={name}
+      disabled={status}
     />
   );
 };
