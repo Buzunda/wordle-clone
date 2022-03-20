@@ -11,5 +11,16 @@
   &:focus {
     outline: none;
   }
+  &.correct {
+    background-color: #60ba51;
+    border-color: #60ba51;
+  }
+  &.wrong {
+    background-color: #c0423f;
+    border-color: #c0423f;
+  }
+  &.misplaced {
+    background-color: #d3aa41;
+    border-color: #d3aa41;
+  }
 }
-

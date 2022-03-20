@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames/bind";
 
 import styles from "./InputBox.module.scss";
 
+const cx = classNames.bind(styles);
+
 const InputBox = ({
   name,
+  status,
   inputRef,
   inputProps,
   handleKeyDown,
@@ -13,7 +17,7 @@ const InputBox = ({
   return (
     <input
       {...inputProps}
-      className={styles.inputBox}
+      className={cx("inputBox", status)}
       type="text"
       onKeyDown={handleKeyDown}
       onChange={handleChange}
@@ -27,6 +31,7 @@ const InputBox = ({
 
 InputBox.propTypes = {
   name: PropTypes.string.isRequired,
+  status: PropTypes.string,
   inputRef: PropTypes.func,
   inputProps: PropTypes.object,
   handleKeyDown: PropTypes.func,
