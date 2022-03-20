@@ -21,8 +21,8 @@
     background-color: $color-wrong;
     border-color: $color-wrong;
   }
-  &.misplaced {
-    background-color: $color-misplaced;
-    border-color: $color-misplaced;
+  &.disabled {
+    background-color: $color-disabled;
+    border-color: $color-disabled;
   }
 }
