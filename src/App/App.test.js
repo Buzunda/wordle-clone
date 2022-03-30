@@ -1,16 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import App from "./App";
-import { fillWord } from "../Test/Helpers";
 import React from "react";
+import { render, screen } from "@testing-library/react";
 
-describe("App", () => {
-  beforeEach(() => {
-    render(<App />);
-  });
+import App from "./App";
 
-  it("renders the filled word", () => {
-    fillWord("super");
+test("loads the app", () => {
+  render(<App />);
 
-    expect(screen.queryByText("super")).toBeInTheDocument();
-  });
+  expect(screen.getByText("Wordle")).toBeInTheDocument();
 });
