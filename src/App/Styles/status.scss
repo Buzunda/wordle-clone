@@ -1,0 +1,21 @@
+@import "./variables";
+
+.correct {
+  background-color: $color-correct;
+  border-color: $color-correct;
+  color: white;
+}
+.wrong {
+  background-color: $color-wrong;
+  border-color: $color-wrong;
+  color: white;
+}
+.misplaced {
+  background-color: $color-misplaced;
+  border-color: $color-misplaced;
+  color: white;
+}
+.disabled {
+  background-color: $color-disabled;
+  border-color: $color-disabled;
+}
