@@ -1,0 +1,11 @@
+.wordle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: inherit;
+
+  h1 {
+    display: flex;
+    justify-content: center;
+  }
+}
