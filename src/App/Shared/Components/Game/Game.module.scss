@@ -1,0 +1,14 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: inherit;
+
+  .board {
+    padding: 10px;
+  }
+
+  .keyboard {
+    padding: 10px;
+  }
+}
