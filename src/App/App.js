@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import Main from "./Main/Main";
+import Wordle from "./Wordle/Wordle";
 
 function App() {
   return (
     <div className="App">
-      <Main />
+      <Wordle />
     </div>
   );
 }
