@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import getGiven from "givens";
 
-import InputBoxes from "./InputBoxes";
+import InputBoxRow from "./InputBoxRow";
 import { Status } from "../../Constants/Status";
 import {
   fillActiveInput,
@@ -10,7 +10,7 @@ import {
   keydownActiveInput,
 } from "../../../../Test/Helpers";
 
-describe("InputBoxes", () => {
+describe("InputBoxRow", () => {
   const given = getGiven();
 
   given("amount", () => 5);
@@ -25,7 +25,7 @@ describe("InputBoxes", () => {
 
   beforeEach(() => {
     render(
-      <InputBoxes
+      <InputBoxRow
         handleOutputString={handleOutputString}
         amount={given.amount}
         statusArray={given.statusArray}

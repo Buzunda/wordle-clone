@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import InputBox from "../InputBox/InputBox";
+import styles from "./InputBoxRow.module.scss";
 
-const InputBoxes = ({ amount, statusArray, handleOutputString }) => {
+const InputBoxRow = ({ amount, statusArray, handleOutputString, ...props }) => {
   const [word, setWord] = useState(Array(amount).fill(null));
 
   const inputRegExp = /^[a-zA-Z]$/;
@@ -12,7 +13,7 @@ const InputBoxes = ({ amount, statusArray, handleOutputString }) => {
 
   useEffect(() => {
     inputElements["input-0"].focus();
-  }, []);
+  }, [JSON.stringify(statusArray)]);
 
   useEffect(() => {
     handleOutputString(word.join(""));
@@ -85,13 +86,17 @@ const InputBoxes = ({ amount, statusArray, handleOutputString }) => {
     return items;
   };
 
-  return <div>{renderItems()}</div>;
+  return (
+    <div {...props} className={styles.inputBoxRow}>
+      {renderItems()}
+    </div>
+  );
 };
 
-InputBoxes.propTypes = {
+InputBoxRow.propTypes = {
   amount: PropTypes.number,
   statusArray: PropTypes.arrayOf(PropTypes.string),
   handleOutputString: PropTypes.func.isRequired,
 };
 
-export default InputBoxes;
+export default InputBoxRow;
