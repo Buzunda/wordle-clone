@@ -40,7 +40,7 @@ describe("InputBox", () => {
     });
   });
 
-  ["correct", "wrong", "misplaced"].forEach((status) => {
+  ["correct", "wrong", "misplaced", "disabled"].forEach((status) => {
     describe(`for status ${status}`, () => {
       given("status", () => status);
 

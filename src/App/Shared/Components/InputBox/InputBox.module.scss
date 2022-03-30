@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import "../../../Styles/variables";
 
 .inputBox {
   justify-content: space-between;
@@ -12,17 +12,5 @@
   text-transform: uppercase;
   &:focus {
     outline: none;
-  }
-  &.correct {
-    background-color: $color-correct;
-    border-color: $color-correct;
-  }
-  &.wrong {
-    background-color: $color-wrong;
-    border-color: $color-wrong;
-  }
-  &.disabled {
-    background-color: $color-disabled;
-    border-color: $color-disabled;
   }
 }
