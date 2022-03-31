@@ -8,13 +8,21 @@ export const fillActiveInput = (value) => {
 
 export const fillWord = (word) => {
   for (let i = 0; i < word.length; i++) {
-    fillActiveInput(word[i]);
+    keydownActiveInput(word[i]);
   }
 };
 
 export const keydownActiveInput = (key) => {
   fireEvent.keyDown(document.activeElement, {
     key: key,
-    code: key,
   });
+};
+
+export const asserElementWithClass = (status, element, elementCLass) => {
+  if (status) {
+    expect(element).toHaveClass(status);
+  } else {
+    expect(element).toHaveClass(elementCLass);
+    expect(element.classList).toHaveLength(1);
+  }
 };
