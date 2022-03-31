@@ -1,0 +1,19 @@
+@import "../../../Styles/variables";
+
+.button {
+  font-family: inherit;
+  font-weight: bold;
+  border: 0;
+  padding: 0;
+  margin: 0 6px 0 0;
+  height: 58px;
+  min-width: 46px;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  background-color: $color-button-secondary;
+  color: $color-button-primary;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
