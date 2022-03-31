@@ -1,33 +1,36 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import getGiven from "givens";
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 
 import Key from "./Key";
+import { assertKeyWithClass } from "../../../../Test/key";
 
-describe("Key", () => {
-  const given = getGiven();
+test("renders the key with the correct status and dispatches the correct action on click", () => {
+  const mockStore = configureStore();
 
-  beforeEach(() => {
-    render(<Key status={given.status}>z</Key>);
-  });
+  const initialState = { value: null };
+  const store = mockStore(initialState);
+  const status = "correct";
+  const key = "z";
 
-  ["correct", "wrong", "misplaced"].forEach((status) => {
-    describe(`for status ${status}`, () => {
-      given("status", () => status);
+  render(
+    <Provider store={store}>
+      <Key status={status}>{key}</Key>
+    </Provider>
+  );
 
-      it(`adds ${status} class`, () => {
-        expect(screen.getByText("z")).toHaveClass(status);
-      });
-    });
-  });
+  const keyElement = screen.getByText(key);
 
-  describe("when there is no status", () => {
-    given("status", () => null);
+  assertKeyWithClass(status, keyElement);
 
-    it("does not add any extra class", () => {
-      const element = screen.getByText("z");
-      expect(element).toHaveClass("key");
-      expect(element.classList).toHaveLength(1);
-    });
-  });
+  keyElement.click();
+
+  const actions = store.getActions();
+  expect(actions).toEqual([
+    {
+      payload: "z",
+      type: "keyPressed/setKeyPressed",
+    },
+  ]);
 });
