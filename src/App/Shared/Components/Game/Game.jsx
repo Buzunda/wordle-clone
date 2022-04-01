@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { getStatusAttempt } from "../../Services/StatusAttempts/statusAttempts";
 import InputBoxBoard from "../InputBoxBoard/InputBoxBoard";
@@ -15,7 +15,7 @@ const Game = ({
   validInputRegExp,
   keyboardType,
 }) => {
-  const [attempts, setAttempts] = useState([]);
+  const [attempts, setAttempts] = useState([""]);
   const [currentAttemptNumber, setCurrentAttemptNumber] = useState(0);
   const [statusAttempts, setStatusAttempts] = useState([
     Array(amount).fill(null),
@@ -26,11 +26,7 @@ const Game = ({
     if (currentAttempt.length === amount) {
       evaluateAttempt();
       setCurrentAttemptNumber(currentAttemptNumber + 1);
-
-      const tmpAttempts = [...attempts];
-      tmpAttempts.push(currentAttempt);
-      setAttempts(tmpAttempts);
-
+      updateAttempts(true);
       setCurrentAttempt("");
     }
   };
@@ -55,8 +51,23 @@ const Game = ({
     setStatusAttempts(tmpStatusAttempts);
   };
 
+  const updateAttempts = (newAttempt) => {
+    const tmpAttempts = [...attempts];
+    if (newAttempt) {
+      tmpAttempts.push(currentAttempt);
+    } else {
+      tmpAttempts[tmpAttempts.length - 1] = currentAttempt;
+    }
+    setAttempts(tmpAttempts);
+  };
+
+  useEffect(() => {
+    updateAttempts(false);
+  }, [currentAttempt]);
+
   return (
     <div className={styles.game}>
+      -- currentAttempt -- {currentAttempt}
       <div className={styles.board}>
         <InputBoxBoard
           amount={amount}
