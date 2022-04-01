@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import Button from "./Button";
-import { asserElementWithClass } from "../../../../Test/Helpers";
+import { asserElementWithClass } from "../../../../Test/helpers";
 
 test("renders the button with the correct status and calls the callback on click", () => {
   const onClick = jest.fn();
