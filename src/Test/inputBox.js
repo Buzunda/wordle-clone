@@ -4,13 +4,11 @@ import { Status } from "../App/Shared/Constants/Status";
 
 const assertInputBoxWithClass = (status, inputElement) => {
   expect(inputElement).toHaveClass(status);
-  expect(inputElement).toBeDisabled();
 };
 
 const assertInputBoxForInput = (status, inputElement) => {
   expect(inputElement).toHaveClass("inputBox");
   expect(inputElement.classList).toHaveLength(1);
-  expect(inputElement).not.toBeDisabled();
 };
 
 export const assertInputBox = (status, inputElement) => {

@@ -1,66 +1,16 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import getGiven from "givens";
+import { render, screen } from "@testing-library/react";
 
 import InputBox from "./InputBox";
+import { asserElementWithClass } from "../../../../Test/helpers";
 
-describe("InputBox", () => {
-  const given = getGiven();
-  const handleKeyDown = jest.fn();
-  const handleChange = jest.fn();
+test("loads the inputBox correctly with the right status", () => {
+  const status = "wrong";
+  const value = "g";
 
-  beforeEach(() => {
-    render(
-      <InputBox
-        type={"text"}
-        status={given.status}
-        handleKeyDown={handleKeyDown}
-        handleChange={handleChange}
-        name={"input-test"}
-      />
-    );
-  });
+  render(<InputBox status={status} value={value} />);
 
-  describe("on keydown", () => {
-    it("calls handleKeyDown callback", () => {
-      fireEvent.keyDown(screen.getByTestId("input-test"), {
-        key: "A",
-        code: "KeyA",
-      });
-      expect(handleKeyDown).toHaveBeenCalled();
-    });
-  });
+  const element = screen.getByText(value);
 
-  describe("on change", () => {
-    it("calls handleChange callback", () => {
-      fireEvent.change(screen.getByTestId("input-test"), {
-        target: { value: "A" },
-      });
-      expect(handleChange).toHaveBeenCalled();
-    });
-  });
-
-  ["correct", "wrong", "misplaced", "disabled"].forEach((status) => {
-    describe(`for status ${status}`, () => {
-      given("status", () => status);
-
-      it(`adds ${status} class`, () => {
-        expect(screen.getByTestId("input-test")).toHaveClass(status);
-      });
-
-      it("disables the input when status is present", () => {
-        expect(screen.getByTestId("input-test")).toBeDisabled();
-      });
-    });
-  });
-
-  describe("when there is no status", () => {
-    given("status", () => null);
-
-    it("does not add any extra class", () => {
-      const element = screen.getByTestId("input-test");
-      expect(element).toHaveClass("inputBox");
-      expect(element.classList).toHaveLength(1);
-    });
-  });
+  asserElementWithClass(status, element, "inputBox");
 });

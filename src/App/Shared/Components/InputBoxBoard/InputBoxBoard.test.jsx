@@ -3,42 +3,37 @@ import { render, screen } from "@testing-library/react";
 import { within } from "@testing-library/dom";
 
 import InputBoxBoard from "./InputBoxBoard";
-import { fillWord } from "../../../../Test/Helpers";
 import {
   assertInputBox,
-  assertInputBoxRowActive,
   assertInputBoxRowDisabled,
+  assertInputBoxRowEqualStatus,
 } from "../../../../Test/inputBox";
+import { Status } from "../../Constants/Status";
 
-const setValue = jest.fn();
-
-test("input box board loads correctly initially", () => {
+test("input box board loads correctly initially", async () => {
   const amount = 5;
   const countTries = 6;
   const statusAttempts = [Array(amount).fill(null)];
 
   render(
     <InputBoxBoard
+      currentAttemptNumber={statusAttempts.length - 1}
+      attempts={[]}
+      statusAttempts={statusAttempts}
       amount={amount}
       countTries={countTries}
-      currentAttemptNumber={statusAttempts.length - 1}
-      statusAttempts={statusAttempts}
-      setValue={setValue}
     />
   );
 
   const row = screen.getByTestId(`inputBoxRow-0`);
+
   expect(row).toBeInTheDocument();
 
-  assertInputBoxRowActive(0, amount);
+  assertInputBoxRowEqualStatus(null, 0, amount);
 
   for (let i = 1; i < countTries; i++) {
-    assertInputBoxRowDisabled(i, amount);
+    assertInputBoxRowEqualStatus(Status.DISABLED, i, amount);
   }
-
-  fillWord("steak");
-
-  expect(setValue).toHaveBeenCalledWith("steak");
 });
 
 test("input box board loads correctly after 3 attempts", () => {
@@ -57,7 +52,7 @@ test("input box board loads correctly after 3 attempts", () => {
       countTries={countTries}
       currentAttemptNumber={statusAttempts.length - 1}
       statusAttempts={statusAttempts}
-      setValue={setValue}
+      attempts={[]}
     />
   );
 

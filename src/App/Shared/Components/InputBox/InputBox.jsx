@@ -6,37 +6,18 @@ import styles from "./InputBox.module.scss";
 
 const cx = classNames.bind(styles);
 
-const InputBox = ({
-  name,
-  status,
-  inputRef,
-  inputProps,
-  handleKeyDown,
-  handleChange,
-}) => {
+const InputBox = ({ status, value, name }) => {
   return (
-    <input
-      {...inputProps}
-      className={cx("inputBox", status)}
-      type="text"
-      onKeyDown={handleKeyDown}
-      onChange={handleChange}
-      maxLength="1"
-      name={name}
-      ref={inputRef}
-      data-testid={name}
-      disabled={status}
-    />
+    <div className={cx("inputBox", status)} data-testid={name}>
+      {value}
+    </div>
   );
 };
 
 InputBox.propTypes = {
-  name: PropTypes.string.isRequired,
   status: PropTypes.string,
-  inputRef: PropTypes.func,
-  inputProps: PropTypes.object,
-  handleKeyDown: PropTypes.func,
-  handleChange: PropTypes.func,
+  value: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default InputBox;

@@ -6,10 +6,10 @@ import styles from "./InputBoxBoard.module.scss";
 
 const InputBoxBoard = ({
   currentAttemptNumber,
+  attempts,
   statusAttempts,
   amount,
   countTries,
-  setValue,
 }) => {
   const statusArray = Array(amount).fill(null);
 
@@ -25,13 +25,13 @@ const InputBoxBoard = ({
         statuses = statusAttempts[i];
       }
       inputBoxesList[i] = (
-        <InputBoxRow
-          handleOutputString={setValue}
-          amount={amount}
-          statusArray={statuses}
-          key={i}
-          data-testid={`inputBoxRow-${i}`}
-        />
+        <div key={i} data-testid={`inputBoxRow-${i}`}>
+          <InputBoxRow
+            attempt={attempts[i]}
+            amount={amount}
+            statusArray={statuses}
+          />
+        </div>
       );
     }
     return inputBoxesList;

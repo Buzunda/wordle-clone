@@ -1,68 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import InputBox from "../InputBox/InputBox";
 import styles from "./InputBoxRow.module.scss";
 
-const InputBoxRow = ({ amount, statusArray, handleOutputString, ...props }) => {
-  const [word, setWord] = useState(Array(amount).fill(null));
-
-  const inputRegExp = /^[a-zA-Z]$/;
-
+const InputBoxRow = ({ amount, attempt, statusArray }) => {
   const inputElements = [];
-
-  useEffect(() => {
-    inputElements["input-0"].focus();
-  }, [JSON.stringify(statusArray)]);
-
-  useEffect(() => {
-    handleOutputString(word.join(""));
-  }, [word]);
-
-  const focusPreviousInput = (target) => {
-    if (target.previousElementSibling !== null) {
-      target.previousElementSibling.focus();
-    }
-  };
-
-  const focusNextInput = (target) => {
-    if (target.nextElementSibling !== null) {
-      target.nextElementSibling.focus();
-    }
-  };
-
-  const setValue = () => {
-    let updatedCharacters = word.map((character, number) => {
-      return inputElements["input-" + number].value;
-    });
-
-    setWord(updatedCharacters);
-  };
-
-  const handleChange = ({ target }) => {
-    if (target.value.match(inputRegExp)) {
-      focusNextInput(target);
-      setValue(target);
-    } else {
-      target.value = word[target.name.replace("input-", "")];
-    }
-  };
-
-  const handleKeyDown = ({ target, key }) => {
-    if (key === "Backspace") {
-      if (target.value === "" && target.previousElementSibling !== null) {
-        target.previousElementSibling.value = "";
-        focusPreviousInput(target);
-      } else {
-        target.value = "";
-      }
-      setValue(target);
-    } else if (key === "ArrowLeft") {
-      focusPreviousInput(target);
-    } else if (key === "ArrowRight" || key === " ") {
-      focusNextInput(target);
-    }
-  };
 
   const renderItems = () => {
     let items = [];
@@ -71,9 +14,8 @@ const InputBoxRow = ({ amount, statusArray, handleOutputString, ...props }) => {
       items.push(
         <InputBox
           key={i}
+          value={attempt ? attempt[i] : null}
           status={statusArray[i]}
-          handleKeyDown={handleKeyDown}
-          handleChange={handleChange}
           inputRef={(el) => {
             if (!el) return;
             inputElements[el.name] = el;
@@ -86,17 +28,13 @@ const InputBoxRow = ({ amount, statusArray, handleOutputString, ...props }) => {
     return items;
   };
 
-  return (
-    <div {...props} className={styles.inputBoxRow}>
-      {renderItems()}
-    </div>
-  );
+  return <div className={styles.inputBoxRow}>{renderItems()}</div>;
 };
 
 InputBoxRow.propTypes = {
   amount: PropTypes.number,
+  attempt: PropTypes.string,
   statusArray: PropTypes.arrayOf(PropTypes.string),
-  handleOutputString: PropTypes.func.isRequired,
 };
 
 export default InputBoxRow;
