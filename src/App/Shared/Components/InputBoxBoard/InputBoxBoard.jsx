@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Status } from "../../Constants/Status";
+import { Status } from "../../Constants/status";
 import InputBoxRow from "../InputBoxRow/InputBoxRow";
 import styles from "./InputBoxBoard.module.scss";
 

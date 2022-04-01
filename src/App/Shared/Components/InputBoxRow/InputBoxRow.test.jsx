@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import InputBoxRow from "./InputBoxRow";
-import { Status } from "../../Constants/Status";
+import { Status } from "../../Constants/status";
 import { asserElementWithClass } from "../../../../Test/helpers";
 
 test("loads the inputBox correctly with the right status", () => {

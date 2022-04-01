@@ -1,4 +1,4 @@
-import { Status } from "../../Constants/Status";
+import { Status } from "../../Constants/status";
 
 export const getStatusAttempt = (value, expectedAnswer) => {
   const attempt = [];

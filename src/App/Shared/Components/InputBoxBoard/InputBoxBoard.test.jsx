@@ -8,7 +8,7 @@ import {
   assertInputBoxRowDisabled,
   assertInputBoxRowEqualStatus,
 } from "../../../../Test/inputBox";
-import { Status } from "../../Constants/Status";
+import { Status } from "../../Constants/status";
 
 test("input box board loads correctly initially", async () => {
   const amount = 5;

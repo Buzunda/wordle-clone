@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { getStatusAttempt } from "../../Services/StatusAttempts/statusAttempts";
 import InputBoxBoard from "../InputBoxBoard/InputBoxBoard";
-import { Status } from "../../Constants/Status";
+import { Status } from "../../Constants/status";
 import styles from "./Game.module.scss";
 import KeyWatcher from "../KeyWatcher/KeyWatcher";
 import Keyboard from "../Keyboard/Keyboard";
