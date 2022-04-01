@@ -5,7 +5,9 @@
   height: inherit;
 
   .board {
-    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 
   .keyboard {

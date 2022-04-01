@@ -1,51 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { getStatusAttempt } from "../../Services/StatusAttempts/statusAttempts";
 import InputBoxBoard from "../InputBoxBoard/InputBoxBoard";
 import { Status } from "../../Constants/Status";
 import styles from "./Game.module.scss";
+import KeyWatcher from "../KeyWatcher/KeyWatcher";
+import Keyboard from "../Keyboard/Keyboard";
+import KeyPressedHandler from "../KeyPressedHandler/KeyPressedHandler";
 
 const Game = ({
   expectedAnswer,
-  attempts,
-  setAttempts,
   amount,
   countTries,
-  keyboard,
+  validInputRegExp,
+  keyboardType,
 }) => {
-  const [value, setValue] = useState("");
+  const [attempts, setAttempts] = useState([]);
   const [currentAttemptNumber, setCurrentAttemptNumber] = useState(0);
   const [statusAttempts, setStatusAttempts] = useState([
     Array(amount).fill(null),
   ]);
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [value]);
-
-  const handleKeyDown = (e) => {
-    if (e.code === "Enter") {
-      submit();
-    }
-  };
+  const [currentAttempt, setCurrentAttempt] = useState("");
 
   const submit = () => {
-    if (value.length === amount) {
+    if (currentAttempt.length === amount) {
       evaluateAttempt();
       setCurrentAttemptNumber(currentAttemptNumber + 1);
 
       const tmpAttempts = [...attempts];
-      tmpAttempts.push(value);
+      tmpAttempts.push(currentAttempt);
       setAttempts(tmpAttempts);
+
+      setCurrentAttempt("");
     }
   };
 
   const evaluateAttempt = () => {
-    const attempt = getStatusAttempt(value, expectedAnswer);
+    const attempt = getStatusAttempt(currentAttempt, expectedAnswer);
 
     updateStatusAttempts(attempt);
   };
@@ -71,11 +62,26 @@ const Game = ({
           amount={amount}
           countTries={countTries}
           currentAttemptNumber={currentAttemptNumber}
+          attempts={attempts}
           statusAttempts={statusAttempts}
-          setValue={setValue}
+          currentAttempt={currentAttempt}
         />
       </div>
-      <div className={styles.keyboard}>{keyboard}</div>
+      <div className={styles.keyboard}>
+        <Keyboard
+          type={keyboardType}
+          attempts={attempts}
+          expectedAnswer={expectedAnswer}
+        />
+      </div>
+      <KeyWatcher />
+      <KeyPressedHandler
+        validInputRegExp={validInputRegExp}
+        currentAttempt={currentAttempt}
+        amount={amount}
+        onEnter={submit}
+        onChange={setCurrentAttempt}
+      />
     </div>
   );
 };

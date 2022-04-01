@@ -1,26 +1,27 @@
 import React from "react";
-import { render } from "@testing-library/react";
 
 import Game from "./Game";
-import { fillWord, keydownActiveInput } from "../../../../Test/Helpers";
+import { fillWord, keydownActiveInput } from "../../../../Test/helpers";
 import {
   assertInputBoxRowActive,
   assertInputBoxRowDisabled,
 } from "../../../../Test/inputBox";
+import { renderWithRedux } from "../../../../Test/renderWithRedux";
+import { KeyboardTypes } from "../../Constants/keyboardTypes";
 
-test("game loads correctly with initial configurations", () => {
-  const amount = 5;
-  const countTries = 6;
-  const expectedAnswer = "fight";
-  const setAttempts = jest.fn();
+const validInputRegExp = /^[a-zA-Z]$/;
+const amount = 5;
+const countTries = 6;
+const expectedAnswer = "fight";
 
-  render(
+test("game loads and plays correctly when typing a word ", () => {
+  renderWithRedux(
     <Game
+      expectedAnswer={expectedAnswer}
       amount={amount}
       countTries={countTries}
-      expectedAnswer={expectedAnswer}
-      attempts={[]}
-      setAttempts={setAttempts}
+      validInputRegExp={validInputRegExp}
+      keyboardType={KeyboardTypes.QWERTY}
     />
   );
 
@@ -33,65 +34,17 @@ test("game loads correctly with initial configurations", () => {
   fillWord("steak");
   keydownActiveInput("Enter");
 
-  expect(setAttempts).toHaveBeenCalledWith(["steak"]);
-});
-
-test("game plays correctly after 4 incorrect attempts", () => {
-  const amount = 5;
-  const countTries = 6;
-  const expectedAnswer = "fight";
-  const attempts = ["amount", "haste", "plate"];
-  const setAttempts = jest.fn();
-
-  render(
-    <Game
-      amount={amount}
-      countTries={countTries}
-      expectedAnswer={expectedAnswer}
-      attempts={attempts}
-      setAttempts={setAttempts}
-    />
-  );
-
-  fillWord("amount");
-  keydownActiveInput("Enter");
-
-  fillWord("haste");
-  keydownActiveInput("Enter");
-
-  fillWord("plate");
-  keydownActiveInput("Enter");
-
-  assertInputBoxRowActive(3, amount);
-
-  for (let i = 4; i < countTries; i++) {
-    assertInputBoxRowDisabled(i, amount);
-  }
-
-  fillWord("steak");
-  keydownActiveInput("Enter");
-
-  expect(setAttempts).toHaveBeenCalledWith([
-    "amount",
-    "haste",
-    "plate",
-    "steak",
-  ]);
+  assertInputBoxRowActive(1, amount);
 });
 
 test("game ends when correct value is attempted", () => {
-  const amount = 5;
-  const countTries = 6;
-  const expectedAnswer = "fight";
-  const setAttempts = jest.fn();
-
-  render(
+  renderWithRedux(
     <Game
+      expectedAnswer={expectedAnswer}
       amount={amount}
       countTries={countTries}
-      expectedAnswer={expectedAnswer}
-      attempts={[]}
-      setAttempts={setAttempts}
+      validInputRegExp={validInputRegExp}
+      keyboardType={KeyboardTypes.QWERTY}
     />
   );
 

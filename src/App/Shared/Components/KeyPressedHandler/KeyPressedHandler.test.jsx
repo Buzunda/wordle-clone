@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import KeyWatcher from "./KeyWatcher";
+import KeyPressedHandler from "./KeyPressedHandler";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 
@@ -15,7 +15,7 @@ test("KeyWatcher dispatches the correct actions for every key typed", () => {
 
   render(
     <Provider store={store}>
-      <KeyWatcher />
+      <KeyPressedHandler />
     </Provider>
   );
 

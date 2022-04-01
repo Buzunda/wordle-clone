@@ -1,25 +1,38 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import Keyboard from "./Keyboard";
 import { assertKeyWithClass } from "../../../../Test/key";
+import { renderWithRedux } from "../../../../Test/renderWithRedux";
 
 test("keyboard loads the keys with the correct status", () => {
-  const rows = [
-    ["a", "b", "c"],
-    ["1", "2", "3"],
+  const keyBoardType = [
+    ["a", "b", "c", "d"],
+    ["1", "2", "3", "4"],
   ];
 
   const statusKeys = {
-    a: "misplaced",
+    a: "wrong",
+    b: "correct",
     c: "wrong",
-    1: "correct",
+    1: "misplaced",
     2: "correct",
+    3: "wrong",
   };
 
-  render(<Keyboard rows={rows} statusKeys={statusKeys} />);
+  const attempts = ["a2b3", "bbc2", "b2b1"];
 
-  rows.forEach((row) => {
+  const expectedAnswer = "b1b2";
+
+  renderWithRedux(
+    <Keyboard
+      type={keyBoardType}
+      attempts={attempts}
+      expectedAnswer={expectedAnswer}
+    />
+  );
+
+  keyBoardType.forEach((row) => {
     row.forEach((char) => {
       assertKeyWithClass(statusKeys[char], screen.getByText(char));
     });

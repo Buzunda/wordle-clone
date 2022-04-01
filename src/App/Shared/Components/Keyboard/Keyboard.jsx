@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./Keyboard.module.scss";
 import Key from "../Key/Key";
+import { getStatusKeys } from "../../Services/StatusAttempts/statusAttempts";
 
-const Keyboard = ({ rows, statusKeys }) => {
+const Keyboard = ({ type, attempts, expectedAnswer }) => {
+  const [statusKeys, setStatusKeys] = useState({});
+
   const renderKey = (key) => {
     return (
       <div className={styles.key} key={key}>
@@ -22,9 +25,19 @@ const Keyboard = ({ rows, statusKeys }) => {
     );
   };
 
+  const updateKeysStatus = () => {
+    const something = getStatusKeys(attempts, expectedAnswer);
+
+    setStatusKeys(something);
+  };
+
+  useEffect(() => {
+    updateKeysStatus();
+  }, [attempts]);
+
   return (
     <div className={styles.keyboard}>
-      {rows.map((row, index) => {
+      {type.map((row, index) => {
         return renderRow(row, index);
       })}
     </div>
