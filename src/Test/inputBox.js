@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { within } from "@testing-library/dom";
-import { Status } from "../App/Shared/Constants/Status";
+import { Status } from "../App/Shared/Constants/status";
 
 const assertInputBoxWithClass = (status, inputElement) => {
   expect(inputElement).toHaveClass(status);
