@@ -22,13 +22,23 @@ const Game = ({
   ]);
   const [currentAttempt, setCurrentAttempt] = useState("");
 
+  const [submitCount, setSubmitCount] = useState(1);
+
   const submit = () => {
     if (currentAttempt.length === amount) {
       evaluateAttempt();
       setCurrentAttemptNumber(currentAttemptNumber + 1);
-      updateAttempts(true);
+
+      const tmpAttempts = [...attempts];
+      tmpAttempts.push("");
+
+      setAttempts(tmpAttempts);
+
       setCurrentAttempt("");
+    } else {
+      updateCurrentAttemptInvalid();
     }
+    setSubmitCount(submitCount + 1);
   };
 
   const evaluateAttempt = () => {
@@ -51,23 +61,26 @@ const Game = ({
     setStatusAttempts(tmpStatusAttempts);
   };
 
-  const updateAttempts = (newAttempt) => {
-    const tmpAttempts = [...attempts];
-    if (newAttempt) {
-      tmpAttempts.push(currentAttempt);
-    } else {
-      tmpAttempts[tmpAttempts.length - 1] = currentAttempt;
-    }
-    setAttempts(tmpAttempts);
+  const updateCurrentAttemptInvalid = () => {
+    let tmpStatusAttempts = statusAttempts.slice();
+
+    tmpStatusAttempts[tmpStatusAttempts.length - 1] = Array(amount).fill(
+      Status.INVALID
+    );
+
+    setStatusAttempts(tmpStatusAttempts);
   };
 
   useEffect(() => {
-    updateAttempts(false);
+    const tmpAttempts = [...attempts];
+
+    tmpAttempts[tmpAttempts.length - 1] = currentAttempt;
+
+    setAttempts(tmpAttempts);
   }, [currentAttempt]);
 
   return (
     <div className={styles.game}>
-      -- currentAttempt -- {currentAttempt}
       <div className={styles.board}>
         <InputBoxBoard
           amount={amount}
@@ -76,6 +89,7 @@ const Game = ({
           attempts={attempts}
           statusAttempts={statusAttempts}
           currentAttempt={currentAttempt}
+          submitCount={submitCount}
         />
       </div>
       <div className={styles.keyboard}>

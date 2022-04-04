@@ -21,6 +21,7 @@ const InputBoxRow = ({ amount, attempt, statusArray }) => {
             inputElements[el.name] = el;
           }}
           name={"input-" + i}
+          delay={(i + 1) * 200}
         />
       );
     }

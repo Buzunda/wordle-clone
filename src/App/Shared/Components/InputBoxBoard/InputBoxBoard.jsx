@@ -10,8 +10,17 @@ const InputBoxBoard = ({
   statusAttempts,
   amount,
   countTries,
+  submitCount,
 }) => {
   const statusArray = Array(amount).fill(null);
+
+  const getKey = (i) => {
+    if (i === currentAttemptNumber) {
+      return `current-${i}-${submitCount}`;
+    } else {
+      return `other-${i}`;
+    }
+  };
 
   const renderInputBoxes = () => {
     let inputBoxesList = [];
@@ -21,11 +30,11 @@ const InputBoxBoard = ({
       if (i > currentAttemptNumber) {
         statuses = Array(amount).fill(Status.DISABLED);
       }
-      if (i <= currentAttemptNumber && currentAttemptNumber > 0) {
+      if (i <= currentAttemptNumber) {
         statuses = statusAttempts[i];
       }
       inputBoxesList[i] = (
-        <div key={i} data-testid={`inputBoxRow-${i}`}>
+        <div key={getKey(i)} data-testid={`inputBoxRow-${i}`}>
           <InputBoxRow
             attempt={attempts[i]}
             amount={amount}

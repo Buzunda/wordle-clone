@@ -3,4 +3,5 @@ export const Status = {
   DISABLED: "disabled",
   MISPLACED: "misplaced",
   WRONG: "wrong",
+  INVALID: "invalid",
 };

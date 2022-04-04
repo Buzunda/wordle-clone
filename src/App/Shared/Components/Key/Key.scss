@@ -1,0 +1,61 @@
+@import "../../../Styles/variables";
+
+.key {
+  font-family: inherit;
+  font-weight: bold;
+  font-size: #{"min(2.4vmin, 20px)"};
+  border: 0;
+  padding: 0;
+  margin: 0 6px 0 0;
+  height: 7.2vmin;
+  max-height: 80px;
+  width: 5.7vmin;
+  max-width: 60px;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  background-color: lightgray;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+button[class*="key-enter"].invalid {
+  animation: headShake;
+  animation-duration: 0.6s;
+}
+
+button[class*="key-enter"] {
+  background-color: white;
+
+  &.wrong,
+  &.misplaced,
+  &.correct {
+    animation: heartBeat;
+    animation-duration: 0.8s;
+
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i}n) {
+        animation-delay: #{$i * 0.15}s;
+      }
+    }
+  }
+}
+button[class*="key-enter-done"] {
+  &.wrong {
+    background-color: $color-wrong;
+    border-color: $color-wrong;
+    color: white;
+  }
+  &.correct {
+    background-color: $color-correct;
+    border-color: $color-correct;
+    color: white;
+  }
+  &.misplaced {
+    background-color: $color-misplaced;
+    border-color: $color-misplaced;
+    color: white;
+  }
+}
